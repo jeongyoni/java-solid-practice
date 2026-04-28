@@ -3,9 +3,11 @@ package solid.kiosk;
 import solid.kiosk.model.Order;
 import solid.kiosk.payment.CardPayment;
 import solid.kiosk.payment.PaymentService;
+import solid.kiosk.receipt.ReceiptPrinter;
+import solid.kiosk.repository.OrderRepository;
 
 
-public class BubbleTeaApp {
+public class KioskApp {
 
 	public static void main(String args[]) {
 		
@@ -26,6 +28,15 @@ public class BubbleTeaApp {
 //	    order.printReceipt();           // 출력
 
 		PaymentService payment =new CardPayment();
+		payment.pay(order.getTotalPrice());
+
+		//DB 저장//
+		OrderRepository repository =new OrderRepository();
+		repository.save(order);
+
+		//영수증 출력//
+		ReceiptPrinter printer =new ReceiptPrinter();
+		printer.print(order);
 
 	}
 }
