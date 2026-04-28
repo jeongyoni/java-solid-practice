@@ -1,18 +1,29 @@
-package solid.kiosk;
+package solid.kiosk.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
 	
-	 private List<String> items = new ArrayList<>();
-	 private int totalPrice = 0;
+	 private List<String> items = new ArrayList<>();//주문메뉴 목록//
+	 private List<String> toppings =new ArrayList<>(); //토핑 목록 //
+	 private int totalPrice = 0; //총 금액 //
 
-	 // 주문 관리
-	 public void addItem(String item, int price) {
-	     items.add(item);
+	 // 메뉴추가( 메뉴명, 사이즈, 가격)//
+	 public void addItem(String item,String size, int price) {
+	     items.add("["+size+"]"+item+ "-"+price +"원");
 	     totalPrice += price;
 	 }
+	 //토핑 추가//
+	 public void addTopping(String toppingName, int price){
+		 toppings.add("  +  " +toppingName + " - " +price + "원");
+		 totalPrice += price;
+	 }
+
+	public List<String> getItems()    { return items; }
+	public List<String> getToppings() { return toppings; }
+	public int getTotalPrice()        { return totalPrice; }
+
 	
 	 // 결제 처리
 	 public void processPayment(String paymentType) {
